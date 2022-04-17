@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Example",
+            "preLaunchTask": "Build Example (Debug)",
+            "program": "${workspaceFolder}/bazel-out/darwin-dbg/bin/tfext/example",
+            "cwd": "${workspaceFolder}/bazel-out/darwin-dbg/bin/tfext/example.runfiles/notebook/",
+            "args": [],
+            "type": "cppdbg",
+            "request": "launch",
+            "MIMode": "lldb",
+            "stopAtEntry": false,
+            "externalConsole": false,
+            "sourceFileMap": {
+                "/private/var/tmp/_bazel_fitz/3558c7b26f0678a7a819549aed6127a8/execroot/notebook/": "${workspaceFolder}",
+            },
+        }
+    ]
+}
