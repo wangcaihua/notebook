@@ -3,8 +3,10 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**",
-                "/home/fitz/anaconda3/envs/py38/lib/python3.8/site-packages/tensorflow/include/**"
+                "${workspaceFolder}",
+                "${workspaceFolder}/tfext/**",
+                "/Users/fitz/code/notebook/bazel-notebook/external/com_google_googletest/googletest/include/**",
+                "/Users/fitz/opt/anaconda3/envs/py8/lib/python3.8/site-packages/tensorflow/include/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
