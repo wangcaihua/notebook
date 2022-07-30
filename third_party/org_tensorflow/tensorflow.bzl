@@ -2,11 +2,12 @@ load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library", "cc_test")
 
 
 def tf_cc_library(name, srcs = [], gpu_srcs = [], deps = [], linkopts = [], copts = [], **kwargs):
-    cc_library(
+    cc_binary(
         name = name,
         srcs = srcs,
         deps = deps + ["@org_tensorflow//:tensorflow_framework"],
         linkopts = linkopts,
+        linkshared = True,
         copts = copts + [
             "-D_GLIBCXX_USE_CXX11_ABI=0",
             "-Iexternal/org_tensorflow/include",
