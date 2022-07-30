@@ -1,10 +1,9 @@
-#include "monolith/native_training/runtime/concurrency/xorshift.h"
+#include "concurrency/utils.h"
 #include <random>
-#include <thread>
 
 #include "gtest/gtest.h"
 
-namespace monolith {
+namespace std {
 namespace concurrency {
 namespace {
 
@@ -61,4 +60,4 @@ TEST(XorShift, MultiThread) {
 
 }  // namespace
 }  // namespace concurrency
-}  // namespace monolith
+}  // namespace std

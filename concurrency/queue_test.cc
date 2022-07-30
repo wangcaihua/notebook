@@ -1,4 +1,4 @@
-#include "monolith/native_training/runtime/concurrency/queue.h"
+#include "concurrency/queue.h"
 
 #include <atomic>
 #include <memory>
@@ -11,12 +11,11 @@ using std::chrono::high_resolution_clock;
 using std::chrono::microseconds;
 using std::chrono::milliseconds;
 
-namespace monolith {
+namespace std {
 namespace concurrency {
-namespace {
 
 float PushTimeout(int timeout /* milliseconds */) {
-  monolith::concurrency::Queue<int> queue(1);
+  Queue<int> queue(1);
   queue.push(1);
   auto start = high_resolution_clock::now();
   EXPECT_FALSE(queue.try_push(2, milliseconds(timeout)));
@@ -26,7 +25,7 @@ float PushTimeout(int timeout /* milliseconds */) {
 }
 
 float PopTimeout(int timeout /* milliseconds */) {
-  monolith::concurrency::Queue<int> queue(1);
+  Queue<int> queue(1);
   queue.push(1);
   int item = queue.pop();
   EXPECT_EQ(item, 1);
@@ -42,7 +41,7 @@ TEST(QueueTest, Basic) {
   std::atomic_int producer_count(0);
   std::atomic_int consumer_count(0);
   std::atomic<bool> done(false);
-  monolith::concurrency::Queue<int> queue(128);
+  Queue<int> queue(128);
 
   const int iterations = 10 * 10000;
   const int producer_thread_count = 10;
@@ -103,6 +102,5 @@ TEST(QueueTest, Timeout) {
   EXPECT_NEAR(PopTimeout(1000), 1000.f, 20);
 }
 
-}  // namespace
 }  // namespace concurrency
-}  // namespace monolith
+}  // namespace std

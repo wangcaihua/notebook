@@ -36,10 +36,14 @@ tf_http_archive(
    urls = tf_mirror_urls("https://github.com/google/googletest/archive/e2c06aa2497e330bab1c1a03d02f7c5096eb5b0b.zip"),
 )
 
-git_repository(
-    name = "com_github_glog_glog",
-    commit = "3106945d8d3322e5cbd5658d482c9ffed2d892c0",
-    remote = "https://github.com/google/glog.git",
+http_archive(
+   name = "com_google_glog",
+   sha256 = "1ee310e5d0a19b9d584a855000434bb724aa744745d5b8ab1855c85bff8a8e21",
+   strip_prefix = "glog-028d37889a1e80e8a07da1b8945ac706259e5fd8",
+   urls = [
+      "https://mirror.bazel.build/github.com/google/glog/archive/028d37889a1e80e8a07da1b8945ac706259e5fd8.tar.gz",
+      "https://github.com/google/glog/archive/028d37889a1e80e8a07da1b8945ac706259e5fd8.tar.gz",
+   ],
 )
 
 tf_http_archive(
@@ -47,6 +51,19 @@ tf_http_archive(
    sha256 = "ae27cdbcd6a2f935baa78e4f21f675649271634c092b1be01469440495609d0e",
    strip_prefix = "gflags-2.2.1",
    urls = tf_mirror_urls("https://github.com/gflags/gflags/archive/v2.2.1.tar.gz"),
+)
+
+tf_http_archive(
+   name = "com_google_absl",
+   build_file = "//third_party/absl:com_google_absl.BUILD",
+   patch_file = ["//third_party/absl:com_google_absl_fix_mac_and_nvcc_build.patch"],
+   sha256 = "f368a8476f4e2e0eccf8a7318b98dafbe30b2600f4e3cf52636e5eb145aba06a",  # SHARED_ABSL_SHA
+   strip_prefix = "abseil-cpp-df3ea785d8c30a9503321a3d35ee7d35808f190d",
+   urls = [
+      "https://storage.googleapis.com/mirror.tensorflow.org/github.com/abseil/abseil-cpp/archive/df3ea785d8c30a9503321a3d35ee7d35808f190d.tar.gz",
+      "https://github.com/abseil/abseil-cpp/archive/df3ea785d8c30a9503321a3d35ee7d35808f190d.tar.gz",
+
+   ],
 )
 
 tf_http_archive(
@@ -95,4 +112,16 @@ new_local_repository(
    name = "org_tensorflow",
    path = "/Users/fitz/opt/anaconda3/envs/py8/lib/python3.8/site-packages/tensorflow",
    build_file = "third_party/org_tensorflow/BUILD",
+)
+
+http_archive(
+   name = "gperftools",
+   build_file = "//third_party:gperftools/gperftools.BUILD",
+   sha256 = "81bb34f546ac8cddd064f8935805f8eb19e3c9661188e127b4c90526e944ebff",
+   patches = ["//third_party:gperftools/gperftools.patch"],
+   patch_args = ["-p1"],
+   strip_prefix = "gperftools-2.7",
+   urls = [
+      "https://github.com/gperftools/gperftools/releases/download/gperftools-2.7/gperftools-2.7.zip",
+   ],
 )

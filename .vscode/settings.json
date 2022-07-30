@@ -1,5 +1,6 @@
 {
     "python.defaultInterpreterPath": "/Users/fitz/opt/anaconda3/envs/py8/bin/python",
+    "editor.tabSize": 2,
     "files.associations": {
         "__bit_reference": "cpp",
         "__bits": "cpp",

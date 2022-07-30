@@ -1,5 +1,5 @@
-#ifndef MONOLITH_MONOLITH_NATIVE_TRAINING_RUNTIME_CONCURRENCY_QUEUE_H_
-#define MONOLITH_MONOLITH_NATIVE_TRAINING_RUNTIME_CONCURRENCY_QUEUE_H_
+#ifndef CONCURRENCY_QUEUE_H_
+#define CONCURRENCY_QUEUE_H_
 
 #include <chrono>
 #include <condition_variable>
@@ -7,7 +7,7 @@
 #include <queue>
 #include <thread>
 
-namespace monolith {
+namespace std {
 namespace concurrency {
 
 template <typename T, bool Ordered = false>
@@ -135,7 +135,8 @@ class Queue {
 
   std::condition_variable dequeue_cond_;
 };
-}  // namespace concurrency
-}  // namespace monolith
 
-#endif  // MONOLITH_MONOLITH_NATIVE_TRAINING_RUNTIME_CONCURRENCY_QUEUE_H_
+}  // namespace concurrency
+}  // namespace std
+
+#endif  // CONCURRENCY_QUEUE_H_
