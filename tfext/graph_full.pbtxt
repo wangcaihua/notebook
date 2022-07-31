@@ -1,0 +1,10263 @@
+node {
+  name: "user_embeddings/Initializer/truncated_normal/shape"
+  op: "Const"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@user_embeddings"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 2
+          }
+        }
+        tensor_content: "\000\004\000\000\010\000\000\000"
+      }
+    }
+  }
+}
+node {
+  name: "user_embeddings/Initializer/truncated_normal/mean"
+  op: "Const"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@user_embeddings"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "user_embeddings/Initializer/truncated_normal/stddev"
+  op: "Const"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@user_embeddings"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 0.0500469096
+      }
+    }
+  }
+}
+node {
+  name: "user_embeddings/Initializer/truncated_normal/TruncatedNormal"
+  op: "TruncatedNormal"
+  input: "user_embeddings/Initializer/truncated_normal/shape"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@user_embeddings"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "seed"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "seed2"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "user_embeddings/Initializer/truncated_normal/mul"
+  op: "Mul"
+  input: "user_embeddings/Initializer/truncated_normal/TruncatedNormal"
+  input: "user_embeddings/Initializer/truncated_normal/stddev"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@user_embeddings"
+      }
+    }
+  }
+}
+node {
+  name: "user_embeddings/Initializer/truncated_normal"
+  op: "Add"
+  input: "user_embeddings/Initializer/truncated_normal/mul"
+  input: "user_embeddings/Initializer/truncated_normal/mean"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@user_embeddings"
+      }
+    }
+  }
+}
+node {
+  name: "user_embeddings"
+  op: "VarHandleOp"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@user_embeddings"
+      }
+    }
+  }
+  attr {
+    key: "allowed_devices"
+    value {
+      list {
+      }
+    }
+  }
+  attr {
+    key: "container"
+    value {
+      s: ""
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 1024
+        }
+        dim {
+          size: 8
+        }
+      }
+    }
+  }
+  attr {
+    key: "shared_name"
+    value {
+      s: "user_embeddings"
+    }
+  }
+}
+node {
+  name: "user_embeddings/IsInitialized/VarIsInitializedOp"
+  op: "VarIsInitializedOp"
+  input: "user_embeddings"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "user_embeddings/Assign"
+  op: "AssignVariableOp"
+  input: "user_embeddings"
+  input: "user_embeddings/Initializer/truncated_normal"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "user_embeddings/Read/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "user_embeddings"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "item_embeddings/Initializer/truncated_normal/shape"
+  op: "Const"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@item_embeddings"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 2
+          }
+        }
+        tensor_content: "\000\001\000\000\010\000\000\000"
+      }
+    }
+  }
+}
+node {
+  name: "item_embeddings/Initializer/truncated_normal/mean"
+  op: "Const"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@item_embeddings"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "item_embeddings/Initializer/truncated_normal/stddev"
+  op: "Const"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@item_embeddings"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 0.0989498496
+      }
+    }
+  }
+}
+node {
+  name: "item_embeddings/Initializer/truncated_normal/TruncatedNormal"
+  op: "TruncatedNormal"
+  input: "item_embeddings/Initializer/truncated_normal/shape"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@item_embeddings"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "seed"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "seed2"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "item_embeddings/Initializer/truncated_normal/mul"
+  op: "Mul"
+  input: "item_embeddings/Initializer/truncated_normal/TruncatedNormal"
+  input: "item_embeddings/Initializer/truncated_normal/stddev"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@item_embeddings"
+      }
+    }
+  }
+}
+node {
+  name: "item_embeddings/Initializer/truncated_normal"
+  op: "Add"
+  input: "item_embeddings/Initializer/truncated_normal/mul"
+  input: "item_embeddings/Initializer/truncated_normal/mean"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@item_embeddings"
+      }
+    }
+  }
+}
+node {
+  name: "item_embeddings"
+  op: "VarHandleOp"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@item_embeddings"
+      }
+    }
+  }
+  attr {
+    key: "allowed_devices"
+    value {
+      list {
+      }
+    }
+  }
+  attr {
+    key: "container"
+    value {
+      s: ""
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 256
+        }
+        dim {
+          size: 8
+        }
+      }
+    }
+  }
+  attr {
+    key: "shared_name"
+    value {
+      s: "item_embeddings"
+    }
+  }
+}
+node {
+  name: "item_embeddings/IsInitialized/VarIsInitializedOp"
+  op: "VarIsInitializedOp"
+  input: "item_embeddings"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+}
+node {
+  name: "item_embeddings/Assign"
+  op: "AssignVariableOp"
+  input: "item_embeddings"
+  input: "item_embeddings/Initializer/truncated_normal"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "item_embeddings/Read/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "item_embeddings"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "Const"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_STRING
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_STRING
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        string_val: "data/test"
+      }
+    }
+  }
+}
+node {
+  name: "flat_filenames/shape"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: -1
+      }
+    }
+  }
+}
+node {
+  name: "flat_filenames"
+  op: "Reshape"
+  input: "Const"
+  input: "flat_filenames/shape"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_STRING
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "TensorSliceDataset"
+  op: "TensorSliceDataset"
+  input: "flat_filenames"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Toutput_types"
+    value {
+      list {
+        type: DT_STRING
+      }
+    }
+  }
+  attr {
+    key: "output_shapes"
+    value {
+      list {
+        shape {
+        }
+      }
+    }
+  }
+}
+node {
+  name: "FlatMapDataset"
+  op: "FlatMapDataset"
+  input: "TensorSliceDataset"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Targuments"
+    value {
+      list {
+      }
+    }
+  }
+  attr {
+    key: "f"
+    value {
+      func {
+        name: "__inference_Dataset_flat_map_read_one_file_29"
+        attr {
+          key: "_tf_data_function"
+          value {
+            b: true
+          }
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_shapes"
+    value {
+      list {
+        shape {
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_types"
+    value {
+      list {
+        type: DT_STRING
+      }
+    }
+  }
+}
+node {
+  name: "MapDataset"
+  op: "MapDataset"
+  input: "FlatMapDataset"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Targuments"
+    value {
+      list {
+      }
+    }
+  }
+  attr {
+    key: "f"
+    value {
+      func {
+        name: "__inference_Dataset_map_lambda_93"
+        attr {
+          key: "_tf_data_function"
+          value {
+            b: true
+          }
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_shapes"
+    value {
+      list {
+        shape {
+          dim {
+            size: -1
+          }
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_types"
+    value {
+      list {
+        type: DT_INT64
+      }
+    }
+  }
+  attr {
+    key: "preserve_cardinality"
+    value {
+      b: true
+    }
+  }
+  attr {
+    key: "use_inter_op_parallelism"
+    value {
+      b: true
+    }
+  }
+}
+node {
+  name: "batch_size"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT64
+        tensor_shape {
+        }
+        int64_val: 128
+      }
+    }
+  }
+}
+node {
+  name: "drop_remainder"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_BOOL
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_BOOL
+        tensor_shape {
+        }
+        bool_val: false
+      }
+    }
+  }
+}
+node {
+  name: "BatchDatasetV2"
+  op: "BatchDatasetV2"
+  input: "MapDataset"
+  input: "batch_size"
+  input: "drop_remainder"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "output_shapes"
+    value {
+      list {
+        shape {
+          dim {
+            size: -1
+          }
+          dim {
+            size: -1
+          }
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_types"
+    value {
+      list {
+        type: DT_INT64
+      }
+    }
+  }
+  attr {
+    key: "parallel_copy"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "buffer_size"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT64
+        tensor_shape {
+        }
+        int64_val: -1
+      }
+    }
+  }
+}
+node {
+  name: "PrefetchDataset"
+  op: "PrefetchDataset"
+  input: "BatchDatasetV2"
+  input: "buffer_size"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@BatchDatasetV2"
+      }
+    }
+  }
+  attr {
+    key: "buffer_size_min"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "legacy_autotune"
+    value {
+      b: true
+    }
+  }
+  attr {
+    key: "output_shapes"
+    value {
+      list {
+        shape {
+          dim {
+            size: -1
+          }
+          dim {
+            size: -1
+          }
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_types"
+    value {
+      list {
+        type: DT_INT64
+      }
+    }
+  }
+  attr {
+    key: "slack_period"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "ModelDataset"
+  op: "ModelDataset"
+  input: "PrefetchDataset"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "algorithm"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "cpu_budget"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "output_shapes"
+    value {
+      list {
+        shape {
+          dim {
+            size: -1
+          }
+          dim {
+            size: -1
+          }
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_types"
+    value {
+      list {
+        type: DT_INT64
+      }
+    }
+  }
+  attr {
+    key: "ram_budget"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "optimizations_enabled"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_STRING
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_STRING
+        tensor_shape {
+          dim {
+          }
+        }
+      }
+    }
+  }
+}
+node {
+  name: "optimizations_disabled"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_STRING
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_STRING
+        tensor_shape {
+          dim {
+          }
+        }
+      }
+    }
+  }
+}
+node {
+  name: "optimizations_default"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_STRING
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_STRING
+        tensor_shape {
+          dim {
+            size: 3
+          }
+        }
+        tensor_content: "\024\031\020map_and_batch_fusionshuffle_and_repeat_fusionnoop_elimination"
+      }
+    }
+  }
+}
+node {
+  name: "OptimizeDatasetV2"
+  op: "OptimizeDatasetV2"
+  input: "ModelDataset"
+  input: "optimizations_enabled"
+  input: "optimizations_disabled"
+  input: "optimizations_default"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "optimization_configs"
+    value {
+      list {
+        s: "autotune_buffer_sizes:autotune:true"
+        s: "disable_prefetch_legacy_autotune:autotune:true"
+        s: "enable_gradient_descent:autotune:true"
+        s: "map_parallelization:autotune:true"
+      }
+    }
+  }
+  attr {
+    key: "output_shapes"
+    value {
+      list {
+        shape {
+          dim {
+            size: -1
+          }
+          dim {
+            size: -1
+          }
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_types"
+    value {
+      list {
+        type: DT_INT64
+      }
+    }
+  }
+}
+node {
+  name: "IteratorV2"
+  op: "IteratorV2"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@BatchDatasetV2"
+      }
+    }
+  }
+  attr {
+    key: "container"
+    value {
+      s: ""
+    }
+  }
+  attr {
+    key: "output_shapes"
+    value {
+      list {
+        shape {
+          dim {
+            size: -1
+          }
+          dim {
+            size: -1
+          }
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_types"
+    value {
+      list {
+        type: DT_INT64
+      }
+    }
+  }
+  attr {
+    key: "shared_name"
+    value {
+      s: ""
+    }
+  }
+}
+node {
+  name: "MakeIterator"
+  op: "MakeIterator"
+  input: "OptimizeDatasetV2"
+  input: "IteratorV2"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@BatchDatasetV2"
+      }
+    }
+  }
+}
+node {
+  name: "IteratorToStringHandle"
+  op: "IteratorToStringHandle"
+  input: "IteratorV2"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@BatchDatasetV2"
+      }
+    }
+  }
+}
+node {
+  name: "IteratorGetNext"
+  op: "IteratorGetNext"
+  input: "IteratorV2"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@BatchDatasetV2"
+      }
+    }
+  }
+  attr {
+    key: "output_shapes"
+    value {
+      list {
+        shape {
+          dim {
+            size: -1
+          }
+          dim {
+            size: -1
+          }
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_types"
+    value {
+      list {
+        type: DT_INT64
+      }
+    }
+  }
+}
+node {
+  name: "Const_1"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 3
+      }
+    }
+  }
+}
+node {
+  name: "split/split_dim"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "split"
+  op: "Split"
+  input: "split/split_dim"
+  input: "IteratorGetNext"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "num_split"
+    value {
+      i: 3
+    }
+  }
+}
+node {
+  name: "lu_usr_emb"
+  op: "ResourceGather"
+  input: "user_embeddings"
+  input: "split"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Tindices"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@user_embeddings"
+      }
+    }
+  }
+  attr {
+    key: "batch_dims"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "validate_indices"
+    value {
+      b: true
+    }
+  }
+}
+node {
+  name: "lu_usr_emb/Identity"
+  op: "Identity"
+  input: "lu_usr_emb"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@user_embeddings"
+      }
+    }
+  }
+}
+node {
+  name: "lu_usr_emb/Identity_1"
+  op: "Identity"
+  input: "lu_usr_emb/Identity"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "lu_item_emb"
+  op: "ResourceGather"
+  input: "item_embeddings"
+  input: "split:1"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "Tindices"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@item_embeddings"
+      }
+    }
+  }
+  attr {
+    key: "batch_dims"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "validate_indices"
+    value {
+      b: true
+    }
+  }
+}
+node {
+  name: "lu_item_emb/Identity"
+  op: "Identity"
+  input: "lu_item_emb"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@item_embeddings"
+      }
+    }
+  }
+}
+node {
+  name: "lu_item_emb/Identity_1"
+  op: "Identity"
+  input: "lu_item_emb/Identity"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "feats_0/axis"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "feats_0"
+  op: "ConcatV2"
+  input: "lu_usr_emb/Identity_1"
+  input: "lu_item_emb/Identity_1"
+  input: "feats_0/axis"
+  device: "/job:cpu_wk/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "Const_2"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_STRING
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_STRING
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        string_val: "data/test"
+      }
+    }
+  }
+}
+node {
+  name: "flat_filenames_1/shape"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: -1
+      }
+    }
+  }
+}
+node {
+  name: "flat_filenames_1"
+  op: "Reshape"
+  input: "Const_2"
+  input: "flat_filenames_1/shape"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_STRING
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "TensorSliceDataset_1"
+  op: "TensorSliceDataset"
+  input: "flat_filenames_1"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "Toutput_types"
+    value {
+      list {
+        type: DT_STRING
+      }
+    }
+  }
+  attr {
+    key: "output_shapes"
+    value {
+      list {
+        shape {
+        }
+      }
+    }
+  }
+}
+node {
+  name: "FlatMapDataset_1"
+  op: "FlatMapDataset"
+  input: "TensorSliceDataset_1"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "Targuments"
+    value {
+      list {
+      }
+    }
+  }
+  attr {
+    key: "f"
+    value {
+      func {
+        name: "__inference_Dataset_flat_map_read_one_file_131"
+        attr {
+          key: "_tf_data_function"
+          value {
+            b: true
+          }
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_shapes"
+    value {
+      list {
+        shape {
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_types"
+    value {
+      list {
+        type: DT_STRING
+      }
+    }
+  }
+}
+node {
+  name: "MapDataset_1"
+  op: "MapDataset"
+  input: "FlatMapDataset_1"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "Targuments"
+    value {
+      list {
+      }
+    }
+  }
+  attr {
+    key: "f"
+    value {
+      func {
+        name: "__inference_Dataset_map_lambda_195"
+        attr {
+          key: "_tf_data_function"
+          value {
+            b: true
+          }
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_shapes"
+    value {
+      list {
+        shape {
+          dim {
+            size: -1
+          }
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_types"
+    value {
+      list {
+        type: DT_INT64
+      }
+    }
+  }
+  attr {
+    key: "preserve_cardinality"
+    value {
+      b: true
+    }
+  }
+  attr {
+    key: "use_inter_op_parallelism"
+    value {
+      b: true
+    }
+  }
+}
+node {
+  name: "batch_size_1"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT64
+        tensor_shape {
+        }
+        int64_val: 128
+      }
+    }
+  }
+}
+node {
+  name: "drop_remainder_1"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_BOOL
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_BOOL
+        tensor_shape {
+        }
+        bool_val: false
+      }
+    }
+  }
+}
+node {
+  name: "BatchDatasetV2_1"
+  op: "BatchDatasetV2"
+  input: "MapDataset_1"
+  input: "batch_size_1"
+  input: "drop_remainder_1"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "output_shapes"
+    value {
+      list {
+        shape {
+          dim {
+            size: -1
+          }
+          dim {
+            size: -1
+          }
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_types"
+    value {
+      list {
+        type: DT_INT64
+      }
+    }
+  }
+  attr {
+    key: "parallel_copy"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "buffer_size_1"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT64
+        tensor_shape {
+        }
+        int64_val: -1
+      }
+    }
+  }
+}
+node {
+  name: "PrefetchDataset_1"
+  op: "PrefetchDataset"
+  input: "BatchDatasetV2_1"
+  input: "buffer_size_1"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@BatchDatasetV2_1"
+      }
+    }
+  }
+  attr {
+    key: "buffer_size_min"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "legacy_autotune"
+    value {
+      b: true
+    }
+  }
+  attr {
+    key: "output_shapes"
+    value {
+      list {
+        shape {
+          dim {
+            size: -1
+          }
+          dim {
+            size: -1
+          }
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_types"
+    value {
+      list {
+        type: DT_INT64
+      }
+    }
+  }
+  attr {
+    key: "slack_period"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "ModelDataset_1"
+  op: "ModelDataset"
+  input: "PrefetchDataset_1"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "algorithm"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "cpu_budget"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "output_shapes"
+    value {
+      list {
+        shape {
+          dim {
+            size: -1
+          }
+          dim {
+            size: -1
+          }
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_types"
+    value {
+      list {
+        type: DT_INT64
+      }
+    }
+  }
+  attr {
+    key: "ram_budget"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "optimizations_enabled_1"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_STRING
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_STRING
+        tensor_shape {
+          dim {
+          }
+        }
+      }
+    }
+  }
+}
+node {
+  name: "optimizations_disabled_1"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_STRING
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_STRING
+        tensor_shape {
+          dim {
+          }
+        }
+      }
+    }
+  }
+}
+node {
+  name: "optimizations_default_1"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_STRING
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_STRING
+        tensor_shape {
+          dim {
+            size: 3
+          }
+        }
+        tensor_content: "\024\031\020map_and_batch_fusionshuffle_and_repeat_fusionnoop_elimination"
+      }
+    }
+  }
+}
+node {
+  name: "OptimizeDatasetV2_1"
+  op: "OptimizeDatasetV2"
+  input: "ModelDataset_1"
+  input: "optimizations_enabled_1"
+  input: "optimizations_disabled_1"
+  input: "optimizations_default_1"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "optimization_configs"
+    value {
+      list {
+        s: "autotune_buffer_sizes:autotune:true"
+        s: "disable_prefetch_legacy_autotune:autotune:true"
+        s: "enable_gradient_descent:autotune:true"
+        s: "map_parallelization:autotune:true"
+      }
+    }
+  }
+  attr {
+    key: "output_shapes"
+    value {
+      list {
+        shape {
+          dim {
+            size: -1
+          }
+          dim {
+            size: -1
+          }
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_types"
+    value {
+      list {
+        type: DT_INT64
+      }
+    }
+  }
+}
+node {
+  name: "IteratorV2_1"
+  op: "IteratorV2"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@BatchDatasetV2_1"
+      }
+    }
+  }
+  attr {
+    key: "container"
+    value {
+      s: ""
+    }
+  }
+  attr {
+    key: "output_shapes"
+    value {
+      list {
+        shape {
+          dim {
+            size: -1
+          }
+          dim {
+            size: -1
+          }
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_types"
+    value {
+      list {
+        type: DT_INT64
+      }
+    }
+  }
+  attr {
+    key: "shared_name"
+    value {
+      s: ""
+    }
+  }
+}
+node {
+  name: "MakeIterator_1"
+  op: "MakeIterator"
+  input: "OptimizeDatasetV2_1"
+  input: "IteratorV2_1"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@BatchDatasetV2_1"
+      }
+    }
+  }
+}
+node {
+  name: "IteratorToStringHandle_1"
+  op: "IteratorToStringHandle"
+  input: "IteratorV2_1"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@BatchDatasetV2_1"
+      }
+    }
+  }
+}
+node {
+  name: "IteratorGetNext_1"
+  op: "IteratorGetNext"
+  input: "IteratorV2_1"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@BatchDatasetV2_1"
+      }
+    }
+  }
+  attr {
+    key: "output_shapes"
+    value {
+      list {
+        shape {
+          dim {
+            size: -1
+          }
+          dim {
+            size: -1
+          }
+        }
+      }
+    }
+  }
+  attr {
+    key: "output_types"
+    value {
+      list {
+        type: DT_INT64
+      }
+    }
+  }
+}
+node {
+  name: "Const_3"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 3
+      }
+    }
+  }
+}
+node {
+  name: "split_1/split_dim"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "split_1"
+  op: "Split"
+  input: "split_1/split_dim"
+  input: "IteratorGetNext_1"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "num_split"
+    value {
+      i: 3
+    }
+  }
+}
+node {
+  name: "lu_usr_emb_1"
+  op: "ResourceGather"
+  input: "user_embeddings"
+  input: "split_1"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Tindices"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@user_embeddings"
+      }
+    }
+  }
+  attr {
+    key: "batch_dims"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "validate_indices"
+    value {
+      b: true
+    }
+  }
+}
+node {
+  name: "lu_usr_emb_1/Identity"
+  op: "Identity"
+  input: "lu_usr_emb_1"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@user_embeddings"
+      }
+    }
+  }
+}
+node {
+  name: "lu_usr_emb_1/Identity_1"
+  op: "Identity"
+  input: "lu_usr_emb_1/Identity"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "lu_item_emb_1"
+  op: "ResourceGather"
+  input: "item_embeddings"
+  input: "split_1:1"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "Tindices"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@item_embeddings"
+      }
+    }
+  }
+  attr {
+    key: "batch_dims"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "validate_indices"
+    value {
+      b: true
+    }
+  }
+}
+node {
+  name: "lu_item_emb_1/Identity"
+  op: "Identity"
+  input: "lu_item_emb_1"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@item_embeddings"
+      }
+    }
+  }
+}
+node {
+  name: "lu_item_emb_1/Identity_1"
+  op: "Identity"
+  input: "lu_item_emb_1/Identity"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "feats_1/axis"
+  op: "Const"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "feats_1"
+  op: "ConcatV2"
+  input: "lu_usr_emb_1/Identity_1"
+  input: "lu_item_emb_1/Identity_1"
+  input: "feats_1/axis"
+  device: "/job:cpu_wk/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "feats/axis"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "feats"
+  op: "ConcatV2"
+  input: "feats_0"
+  input: "feats_1"
+  input: "feats/axis"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "labels/axis"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "labels"
+  op: "ConcatV2"
+  input: "split:2"
+  input: "split_1:2"
+  input: "labels/axis"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "dense/kernel/Initializer/random_uniform/shape"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 2
+          }
+        }
+        tensor_content: "\010\000\000\000 \000\000\000"
+      }
+    }
+  }
+}
+node {
+  name: "dense/kernel/Initializer/random_uniform/min"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: -0.387298346
+      }
+    }
+  }
+}
+node {
+  name: "dense/kernel/Initializer/random_uniform/max"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 0.387298346
+      }
+    }
+  }
+}
+node {
+  name: "dense/kernel/Initializer/random_uniform/RandomUniform"
+  op: "RandomUniform"
+  input: "dense/kernel/Initializer/random_uniform/shape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "seed"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "seed2"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "dense/kernel/Initializer/random_uniform/sub"
+  op: "Sub"
+  input: "dense/kernel/Initializer/random_uniform/max"
+  input: "dense/kernel/Initializer/random_uniform/min"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense/kernel"
+      }
+    }
+  }
+}
+node {
+  name: "dense/kernel/Initializer/random_uniform/mul"
+  op: "Mul"
+  input: "dense/kernel/Initializer/random_uniform/RandomUniform"
+  input: "dense/kernel/Initializer/random_uniform/sub"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense/kernel"
+      }
+    }
+  }
+}
+node {
+  name: "dense/kernel/Initializer/random_uniform"
+  op: "Add"
+  input: "dense/kernel/Initializer/random_uniform/mul"
+  input: "dense/kernel/Initializer/random_uniform/min"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense/kernel"
+      }
+    }
+  }
+}
+node {
+  name: "dense/kernel"
+  op: "VarHandleOp"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense/kernel"
+      }
+    }
+  }
+  attr {
+    key: "allowed_devices"
+    value {
+      list {
+      }
+    }
+  }
+  attr {
+    key: "container"
+    value {
+      s: ""
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 8
+        }
+        dim {
+          size: 32
+        }
+      }
+    }
+  }
+  attr {
+    key: "shared_name"
+    value {
+      s: "dense/kernel"
+    }
+  }
+}
+node {
+  name: "dense/kernel/IsInitialized/VarIsInitializedOp"
+  op: "VarIsInitializedOp"
+  input: "dense/kernel"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "dense/kernel/Assign"
+  op: "AssignVariableOp"
+  input: "dense/kernel"
+  input: "dense/kernel/Initializer/random_uniform"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "dense/kernel/Read/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "dense/kernel"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "dense/bias/Initializer/zeros"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense/bias"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+          dim {
+            size: 32
+          }
+        }
+        float_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "dense/bias"
+  op: "VarHandleOp"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense/bias"
+      }
+    }
+  }
+  attr {
+    key: "allowed_devices"
+    value {
+      list {
+      }
+    }
+  }
+  attr {
+    key: "container"
+    value {
+      s: ""
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 32
+        }
+      }
+    }
+  }
+  attr {
+    key: "shared_name"
+    value {
+      s: "dense/bias"
+    }
+  }
+}
+node {
+  name: "dense/bias/IsInitialized/VarIsInitializedOp"
+  op: "VarIsInitializedOp"
+  input: "dense/bias"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "dense/bias/Assign"
+  op: "AssignVariableOp"
+  input: "dense/bias"
+  input: "dense/bias/Initializer/zeros"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "dense/bias/Read/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "dense/bias"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "dense/kernel"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/axes"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 2
+      }
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/free"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 2
+          }
+        }
+        tensor_content: "\000\000\000\000\001\000\000\000"
+      }
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/Shape"
+  op: "Shape"
+  input: "feats"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/GatherV2/axis"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/GatherV2"
+  op: "GatherV2"
+  input: "dense/Tensordot/Shape"
+  input: "dense/Tensordot/free"
+  input: "dense/Tensordot/GatherV2/axis"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Taxis"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tindices"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tparams"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "batch_dims"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/GatherV2_1/axis"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/GatherV2_1"
+  op: "GatherV2"
+  input: "dense/Tensordot/Shape"
+  input: "dense/Tensordot/axes"
+  input: "dense/Tensordot/GatherV2_1/axis"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Taxis"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tindices"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tparams"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "batch_dims"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/Const"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/Prod"
+  op: "Prod"
+  input: "dense/Tensordot/GatherV2"
+  input: "dense/Tensordot/Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/Const_1"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/Prod_1"
+  op: "Prod"
+  input: "dense/Tensordot/GatherV2_1"
+  input: "dense/Tensordot/Const_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/concat/axis"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/concat"
+  op: "ConcatV2"
+  input: "dense/Tensordot/free"
+  input: "dense/Tensordot/axes"
+  input: "dense/Tensordot/concat/axis"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/stack"
+  op: "Pack"
+  input: "dense/Tensordot/Prod"
+  input: "dense/Tensordot/Prod_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "axis"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/transpose"
+  op: "Transpose"
+  input: "feats"
+  input: "dense/Tensordot/concat"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tperm"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/Reshape"
+  op: "Reshape"
+  input: "dense/Tensordot/transpose"
+  input: "dense/Tensordot/stack"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/MatMul"
+  op: "MatMul"
+  input: "dense/Tensordot/Reshape"
+  input: "dense/Tensordot/ReadVariableOp"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "transpose_a"
+    value {
+      b: false
+    }
+  }
+  attr {
+    key: "transpose_b"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/Const_2"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 32
+      }
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/concat_1/axis"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "dense/Tensordot/concat_1"
+  op: "ConcatV2"
+  input: "dense/Tensordot/GatherV2"
+  input: "dense/Tensordot/Const_2"
+  input: "dense/Tensordot/concat_1/axis"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "dense/Tensordot"
+  op: "Reshape"
+  input: "dense/Tensordot/MatMul"
+  input: "dense/Tensordot/concat_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "dense/BiasAdd/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "dense/bias"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "dense/BiasAdd"
+  op: "BiasAdd"
+  input: "dense/Tensordot"
+  input: "dense/BiasAdd/ReadVariableOp"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "data_format"
+    value {
+      s: "NHWC"
+    }
+  }
+}
+node {
+  name: "dense/Relu"
+  op: "Relu"
+  input: "dense/BiasAdd"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "dense_1/kernel/Initializer/random_uniform/shape"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense_1/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 2
+          }
+        }
+        tensor_content: " \000\000\000\001\000\000\000"
+      }
+    }
+  }
+}
+node {
+  name: "dense_1/kernel/Initializer/random_uniform/min"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense_1/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: -0.426401436
+      }
+    }
+  }
+}
+node {
+  name: "dense_1/kernel/Initializer/random_uniform/max"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense_1/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 0.426401436
+      }
+    }
+  }
+}
+node {
+  name: "dense_1/kernel/Initializer/random_uniform/RandomUniform"
+  op: "RandomUniform"
+  input: "dense_1/kernel/Initializer/random_uniform/shape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense_1/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "seed"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "seed2"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "dense_1/kernel/Initializer/random_uniform/sub"
+  op: "Sub"
+  input: "dense_1/kernel/Initializer/random_uniform/max"
+  input: "dense_1/kernel/Initializer/random_uniform/min"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense_1/kernel"
+      }
+    }
+  }
+}
+node {
+  name: "dense_1/kernel/Initializer/random_uniform/mul"
+  op: "Mul"
+  input: "dense_1/kernel/Initializer/random_uniform/RandomUniform"
+  input: "dense_1/kernel/Initializer/random_uniform/sub"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense_1/kernel"
+      }
+    }
+  }
+}
+node {
+  name: "dense_1/kernel/Initializer/random_uniform"
+  op: "Add"
+  input: "dense_1/kernel/Initializer/random_uniform/mul"
+  input: "dense_1/kernel/Initializer/random_uniform/min"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense_1/kernel"
+      }
+    }
+  }
+}
+node {
+  name: "dense_1/kernel"
+  op: "VarHandleOp"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense_1/kernel"
+      }
+    }
+  }
+  attr {
+    key: "allowed_devices"
+    value {
+      list {
+      }
+    }
+  }
+  attr {
+    key: "container"
+    value {
+      s: ""
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 32
+        }
+        dim {
+          size: 1
+        }
+      }
+    }
+  }
+  attr {
+    key: "shared_name"
+    value {
+      s: "dense_1/kernel"
+    }
+  }
+}
+node {
+  name: "dense_1/kernel/IsInitialized/VarIsInitializedOp"
+  op: "VarIsInitializedOp"
+  input: "dense_1/kernel"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "dense_1/kernel/Assign"
+  op: "AssignVariableOp"
+  input: "dense_1/kernel"
+  input: "dense_1/kernel/Initializer/random_uniform"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "dense_1/kernel/Read/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "dense_1/kernel"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "dense_1/bias/Initializer/zeros"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense_1/bias"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        float_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "dense_1/bias"
+  op: "VarHandleOp"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense_1/bias"
+      }
+    }
+  }
+  attr {
+    key: "allowed_devices"
+    value {
+      list {
+      }
+    }
+  }
+  attr {
+    key: "container"
+    value {
+      s: ""
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 1
+        }
+      }
+    }
+  }
+  attr {
+    key: "shared_name"
+    value {
+      s: "dense_1/bias"
+    }
+  }
+}
+node {
+  name: "dense_1/bias/IsInitialized/VarIsInitializedOp"
+  op: "VarIsInitializedOp"
+  input: "dense_1/bias"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "dense_1/bias/Assign"
+  op: "AssignVariableOp"
+  input: "dense_1/bias"
+  input: "dense_1/bias/Initializer/zeros"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "dense_1/bias/Read/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "dense_1/bias"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "dense_1/kernel"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/axes"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 2
+      }
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/free"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 2
+          }
+        }
+        tensor_content: "\000\000\000\000\001\000\000\000"
+      }
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/Shape"
+  op: "Shape"
+  input: "dense/Relu"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/GatherV2/axis"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/GatherV2"
+  op: "GatherV2"
+  input: "dense_1/Tensordot/Shape"
+  input: "dense_1/Tensordot/free"
+  input: "dense_1/Tensordot/GatherV2/axis"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Taxis"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tindices"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tparams"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "batch_dims"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/GatherV2_1/axis"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/GatherV2_1"
+  op: "GatherV2"
+  input: "dense_1/Tensordot/Shape"
+  input: "dense_1/Tensordot/axes"
+  input: "dense_1/Tensordot/GatherV2_1/axis"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Taxis"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tindices"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tparams"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "batch_dims"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/Const"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/Prod"
+  op: "Prod"
+  input: "dense_1/Tensordot/GatherV2"
+  input: "dense_1/Tensordot/Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/Const_1"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/Prod_1"
+  op: "Prod"
+  input: "dense_1/Tensordot/GatherV2_1"
+  input: "dense_1/Tensordot/Const_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/concat/axis"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/concat"
+  op: "ConcatV2"
+  input: "dense_1/Tensordot/free"
+  input: "dense_1/Tensordot/axes"
+  input: "dense_1/Tensordot/concat/axis"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/stack"
+  op: "Pack"
+  input: "dense_1/Tensordot/Prod"
+  input: "dense_1/Tensordot/Prod_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "axis"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/transpose"
+  op: "Transpose"
+  input: "dense/Relu"
+  input: "dense_1/Tensordot/concat"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tperm"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/Reshape"
+  op: "Reshape"
+  input: "dense_1/Tensordot/transpose"
+  input: "dense_1/Tensordot/stack"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/MatMul"
+  op: "MatMul"
+  input: "dense_1/Tensordot/Reshape"
+  input: "dense_1/Tensordot/ReadVariableOp"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "transpose_a"
+    value {
+      b: false
+    }
+  }
+  attr {
+    key: "transpose_b"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/Const_2"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/concat_1/axis"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot/concat_1"
+  op: "ConcatV2"
+  input: "dense_1/Tensordot/GatherV2"
+  input: "dense_1/Tensordot/Const_2"
+  input: "dense_1/Tensordot/concat_1/axis"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "dense_1/Tensordot"
+  op: "Reshape"
+  input: "dense_1/Tensordot/MatMul"
+  input: "dense_1/Tensordot/concat_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "dense_1/BiasAdd/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "dense_1/bias"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "dense_1/BiasAdd"
+  op: "BiasAdd"
+  input: "dense_1/Tensordot"
+  input: "dense_1/BiasAdd/ReadVariableOp"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "data_format"
+    value {
+      s: "NHWC"
+    }
+  }
+}
+node {
+  name: "dense_1/Relu"
+  op: "Relu"
+  input: "dense_1/BiasAdd"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "Sigmoid"
+  op: "Sigmoid"
+  input: "dense_1/Relu"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "Reshape/shape"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: -1
+      }
+    }
+  }
+}
+node {
+  name: "Reshape"
+  op: "Reshape"
+  input: "Sigmoid"
+  input: "Reshape/shape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "Cast"
+  op: "Cast"
+  input: "labels"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "DstT"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "SrcT"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "Truncate"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "Const_4"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "Const_5"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 1e-07
+      }
+    }
+  }
+}
+node {
+  name: "sub/x"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "sub"
+  op: "Sub"
+  input: "sub/x"
+  input: "Const_5"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "clip_by_value/Minimum"
+  op: "Minimum"
+  input: "Reshape"
+  input: "sub"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "clip_by_value"
+  op: "Maximum"
+  input: "clip_by_value/Minimum"
+  input: "Const_5"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "add/y"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 1e-07
+      }
+    }
+  }
+}
+node {
+  name: "add"
+  op: "AddV2"
+  input: "clip_by_value"
+  input: "add/y"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "Log"
+  op: "Log"
+  input: "add"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "mul"
+  op: "Mul"
+  input: "Cast"
+  input: "Log"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "sub_1/x"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "sub_1"
+  op: "Sub"
+  input: "sub_1/x"
+  input: "Cast"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "sub_2/x"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "sub_2"
+  op: "Sub"
+  input: "sub_2/x"
+  input: "clip_by_value"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "add_1/y"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 1e-07
+      }
+    }
+  }
+}
+node {
+  name: "add_1"
+  op: "AddV2"
+  input: "sub_2"
+  input: "add_1/y"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "Log_1"
+  op: "Log"
+  input: "add_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "mul_1"
+  op: "Mul"
+  input: "sub_1"
+  input: "Log_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "add_2"
+  op: "AddV2"
+  input: "mul"
+  input: "mul_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "Neg"
+  op: "Neg"
+  input: "add_2"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "Mean/reduction_indices"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: -1
+      }
+    }
+  }
+}
+node {
+  name: "Mean"
+  op: "Mean"
+  input: "Neg"
+  input: "Mean/reduction_indices"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "global_step/Initializer/zeros"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@global_step"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT64
+        tensor_shape {
+        }
+        int64_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "global_step"
+  op: "VarHandleOp"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@global_step"
+      }
+    }
+  }
+  attr {
+    key: "allowed_devices"
+    value {
+      list {
+      }
+    }
+  }
+  attr {
+    key: "container"
+    value {
+      s: ""
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+      }
+    }
+  }
+  attr {
+    key: "shared_name"
+    value {
+      s: "global_step"
+    }
+  }
+}
+node {
+  name: "global_step/IsInitialized/VarIsInitializedOp"
+  op: "VarIsInitializedOp"
+  input: "global_step"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "global_step/Assign"
+  op: "AssignVariableOp"
+  input: "global_step"
+  input: "global_step/Initializer/zeros"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT64
+    }
+  }
+}
+node {
+  name: "global_step/Read/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "global_step"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT64
+    }
+  }
+}
+node {
+  name: "gradients/Shape"
+  op: "Shape"
+  input: "Mean"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/grad_ys_0"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "gradients/Fill"
+  op: "Fill"
+  input: "gradients/Shape"
+  input: "gradients/grad_ys_0"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "index_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/Shape"
+  op: "Shape"
+  input: "Neg"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/Size"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/Mean_grad/Shape"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 2
+      }
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/add"
+  op: "AddV2"
+  input: "Mean/reduction_indices"
+  input: "gradients/Mean_grad/Size"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/Mean_grad/Shape"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/mod"
+  op: "FloorMod"
+  input: "gradients/Mean_grad/add"
+  input: "gradients/Mean_grad/Size"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/Mean_grad/Shape"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/Shape_1"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/Mean_grad/Shape"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+          }
+        }
+      }
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/range/start"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/Mean_grad/Shape"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/range/delta"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/Mean_grad/Shape"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/range"
+  op: "Range"
+  input: "gradients/Mean_grad/range/start"
+  input: "gradients/Mean_grad/Size"
+  input: "gradients/Mean_grad/range/delta"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/Mean_grad/Shape"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/Fill/value"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/Mean_grad/Shape"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/Fill"
+  op: "Fill"
+  input: "gradients/Mean_grad/Shape_1"
+  input: "gradients/Mean_grad/Fill/value"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/Mean_grad/Shape"
+      }
+    }
+  }
+  attr {
+    key: "index_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/DynamicStitch"
+  op: "DynamicStitch"
+  input: "gradients/Mean_grad/range"
+  input: "gradients/Mean_grad/mod"
+  input: "gradients/Mean_grad/Shape"
+  input: "gradients/Mean_grad/Fill"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/Mean_grad/Shape"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/Reshape"
+  op: "Reshape"
+  input: "gradients/Fill"
+  input: "gradients/Mean_grad/DynamicStitch"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/BroadcastTo"
+  op: "BroadcastTo"
+  input: "gradients/Mean_grad/Reshape"
+  input: "gradients/Mean_grad/Shape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/Shape_2"
+  op: "Shape"
+  input: "Neg"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/Shape_3"
+  op: "Shape"
+  input: "Mean"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/Const"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/Prod"
+  op: "Prod"
+  input: "gradients/Mean_grad/Shape_2"
+  input: "gradients/Mean_grad/Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/Const_1"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/Prod_1"
+  op: "Prod"
+  input: "gradients/Mean_grad/Shape_3"
+  input: "gradients/Mean_grad/Const_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/Maximum/y"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/Maximum"
+  op: "Maximum"
+  input: "gradients/Mean_grad/Prod_1"
+  input: "gradients/Mean_grad/Maximum/y"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/floordiv"
+  op: "FloorDiv"
+  input: "gradients/Mean_grad/Prod"
+  input: "gradients/Mean_grad/Maximum"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/Cast"
+  op: "Cast"
+  input: "gradients/Mean_grad/floordiv"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "DstT"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "SrcT"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Truncate"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/Mean_grad/truediv"
+  op: "RealDiv"
+  input: "gradients/Mean_grad/BroadcastTo"
+  input: "gradients/Mean_grad/Cast"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/Neg_grad/Neg"
+  op: "Neg"
+  input: "gradients/Mean_grad/truediv"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/add_2_grad/Shape"
+  op: "Shape"
+  input: "mul"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/add_2_grad/Shape_1"
+  op: "Shape"
+  input: "mul_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/add_2_grad/BroadcastGradientArgs"
+  op: "BroadcastGradientArgs"
+  input: "gradients/add_2_grad/Shape"
+  input: "gradients/add_2_grad/Shape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/add_2_grad/Sum"
+  op: "Sum"
+  input: "gradients/Neg_grad/Neg"
+  input: "gradients/add_2_grad/BroadcastGradientArgs"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/add_2_grad/Reshape"
+  op: "Reshape"
+  input: "gradients/add_2_grad/Sum"
+  input: "gradients/add_2_grad/Shape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/add_2_grad/Sum_1"
+  op: "Sum"
+  input: "gradients/Neg_grad/Neg"
+  input: "gradients/add_2_grad/BroadcastGradientArgs:1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/add_2_grad/Reshape_1"
+  op: "Reshape"
+  input: "gradients/add_2_grad/Sum_1"
+  input: "gradients/add_2_grad/Shape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/add_2_grad/tuple/group_deps"
+  op: "NoOp"
+  input: "^gradients/add_2_grad/Reshape"
+  input: "^gradients/add_2_grad/Reshape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "gradients/add_2_grad/tuple/control_dependency"
+  op: "Identity"
+  input: "gradients/add_2_grad/Reshape"
+  input: "^gradients/add_2_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/add_2_grad/Reshape"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/add_2_grad/tuple/control_dependency_1"
+  op: "Identity"
+  input: "gradients/add_2_grad/Reshape_1"
+  input: "^gradients/add_2_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/add_2_grad/Reshape_1"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/mul_grad/Shape"
+  op: "Shape"
+  input: "Cast"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/mul_grad/Shape_1"
+  op: "Shape"
+  input: "Log"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/mul_grad/BroadcastGradientArgs"
+  op: "BroadcastGradientArgs"
+  input: "gradients/mul_grad/Shape"
+  input: "gradients/mul_grad/Shape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/mul_grad/Mul"
+  op: "Mul"
+  input: "gradients/add_2_grad/tuple/control_dependency"
+  input: "Log"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/mul_grad/Sum"
+  op: "Sum"
+  input: "gradients/mul_grad/Mul"
+  input: "gradients/mul_grad/BroadcastGradientArgs"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/mul_grad/Reshape"
+  op: "Reshape"
+  input: "gradients/mul_grad/Sum"
+  input: "gradients/mul_grad/Shape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/mul_grad/Mul_1"
+  op: "Mul"
+  input: "Cast"
+  input: "gradients/add_2_grad/tuple/control_dependency"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/mul_grad/Sum_1"
+  op: "Sum"
+  input: "gradients/mul_grad/Mul_1"
+  input: "gradients/mul_grad/BroadcastGradientArgs:1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/mul_grad/Reshape_1"
+  op: "Reshape"
+  input: "gradients/mul_grad/Sum_1"
+  input: "gradients/mul_grad/Shape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/mul_grad/tuple/group_deps"
+  op: "NoOp"
+  input: "^gradients/mul_grad/Reshape"
+  input: "^gradients/mul_grad/Reshape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "gradients/mul_grad/tuple/control_dependency"
+  op: "Identity"
+  input: "gradients/mul_grad/Reshape"
+  input: "^gradients/mul_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/mul_grad/Reshape"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/mul_grad/tuple/control_dependency_1"
+  op: "Identity"
+  input: "gradients/mul_grad/Reshape_1"
+  input: "^gradients/mul_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/mul_grad/Reshape_1"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/mul_1_grad/Shape"
+  op: "Shape"
+  input: "sub_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/mul_1_grad/Shape_1"
+  op: "Shape"
+  input: "Log_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/mul_1_grad/BroadcastGradientArgs"
+  op: "BroadcastGradientArgs"
+  input: "gradients/mul_1_grad/Shape"
+  input: "gradients/mul_1_grad/Shape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/mul_1_grad/Mul"
+  op: "Mul"
+  input: "gradients/add_2_grad/tuple/control_dependency_1"
+  input: "Log_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/mul_1_grad/Sum"
+  op: "Sum"
+  input: "gradients/mul_1_grad/Mul"
+  input: "gradients/mul_1_grad/BroadcastGradientArgs"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/mul_1_grad/Reshape"
+  op: "Reshape"
+  input: "gradients/mul_1_grad/Sum"
+  input: "gradients/mul_1_grad/Shape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/mul_1_grad/Mul_1"
+  op: "Mul"
+  input: "sub_1"
+  input: "gradients/add_2_grad/tuple/control_dependency_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/mul_1_grad/Sum_1"
+  op: "Sum"
+  input: "gradients/mul_1_grad/Mul_1"
+  input: "gradients/mul_1_grad/BroadcastGradientArgs:1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/mul_1_grad/Reshape_1"
+  op: "Reshape"
+  input: "gradients/mul_1_grad/Sum_1"
+  input: "gradients/mul_1_grad/Shape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/mul_1_grad/tuple/group_deps"
+  op: "NoOp"
+  input: "^gradients/mul_1_grad/Reshape"
+  input: "^gradients/mul_1_grad/Reshape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "gradients/mul_1_grad/tuple/control_dependency"
+  op: "Identity"
+  input: "gradients/mul_1_grad/Reshape"
+  input: "^gradients/mul_1_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/mul_1_grad/Reshape"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/mul_1_grad/tuple/control_dependency_1"
+  op: "Identity"
+  input: "gradients/mul_1_grad/Reshape_1"
+  input: "^gradients/mul_1_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/mul_1_grad/Reshape_1"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/Log_grad/Reciprocal"
+  op: "Reciprocal"
+  input: "add"
+  input: "^gradients/mul_grad/tuple/control_dependency_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/Log_grad/mul"
+  op: "Mul"
+  input: "gradients/mul_grad/tuple/control_dependency_1"
+  input: "gradients/Log_grad/Reciprocal"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/Log_1_grad/Reciprocal"
+  op: "Reciprocal"
+  input: "add_1"
+  input: "^gradients/mul_1_grad/tuple/control_dependency_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/Log_1_grad/mul"
+  op: "Mul"
+  input: "gradients/mul_1_grad/tuple/control_dependency_1"
+  input: "gradients/Log_1_grad/Reciprocal"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/add_grad/Shape"
+  op: "Shape"
+  input: "clip_by_value"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/add_grad/Shape_1"
+  op: "Shape"
+  input: "add/y"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/add_grad/BroadcastGradientArgs"
+  op: "BroadcastGradientArgs"
+  input: "gradients/add_grad/Shape"
+  input: "gradients/add_grad/Shape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/add_grad/Sum"
+  op: "Sum"
+  input: "gradients/Log_grad/mul"
+  input: "gradients/add_grad/BroadcastGradientArgs"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/add_grad/Reshape"
+  op: "Reshape"
+  input: "gradients/add_grad/Sum"
+  input: "gradients/add_grad/Shape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/add_grad/Sum_1"
+  op: "Sum"
+  input: "gradients/Log_grad/mul"
+  input: "gradients/add_grad/BroadcastGradientArgs:1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/add_grad/Reshape_1"
+  op: "Reshape"
+  input: "gradients/add_grad/Sum_1"
+  input: "gradients/add_grad/Shape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/add_grad/tuple/group_deps"
+  op: "NoOp"
+  input: "^gradients/add_grad/Reshape"
+  input: "^gradients/add_grad/Reshape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "gradients/add_grad/tuple/control_dependency"
+  op: "Identity"
+  input: "gradients/add_grad/Reshape"
+  input: "^gradients/add_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/add_grad/Reshape"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/add_grad/tuple/control_dependency_1"
+  op: "Identity"
+  input: "gradients/add_grad/Reshape_1"
+  input: "^gradients/add_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/add_grad/Reshape_1"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/add_1_grad/Shape"
+  op: "Shape"
+  input: "sub_2"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/add_1_grad/Shape_1"
+  op: "Shape"
+  input: "add_1/y"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/add_1_grad/BroadcastGradientArgs"
+  op: "BroadcastGradientArgs"
+  input: "gradients/add_1_grad/Shape"
+  input: "gradients/add_1_grad/Shape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/add_1_grad/Sum"
+  op: "Sum"
+  input: "gradients/Log_1_grad/mul"
+  input: "gradients/add_1_grad/BroadcastGradientArgs"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/add_1_grad/Reshape"
+  op: "Reshape"
+  input: "gradients/add_1_grad/Sum"
+  input: "gradients/add_1_grad/Shape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/add_1_grad/Sum_1"
+  op: "Sum"
+  input: "gradients/Log_1_grad/mul"
+  input: "gradients/add_1_grad/BroadcastGradientArgs:1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/add_1_grad/Reshape_1"
+  op: "Reshape"
+  input: "gradients/add_1_grad/Sum_1"
+  input: "gradients/add_1_grad/Shape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/add_1_grad/tuple/group_deps"
+  op: "NoOp"
+  input: "^gradients/add_1_grad/Reshape"
+  input: "^gradients/add_1_grad/Reshape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "gradients/add_1_grad/tuple/control_dependency"
+  op: "Identity"
+  input: "gradients/add_1_grad/Reshape"
+  input: "^gradients/add_1_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/add_1_grad/Reshape"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/add_1_grad/tuple/control_dependency_1"
+  op: "Identity"
+  input: "gradients/add_1_grad/Reshape_1"
+  input: "^gradients/add_1_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/add_1_grad/Reshape_1"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/sub_2_grad/Shape"
+  op: "Shape"
+  input: "sub_2/x"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/sub_2_grad/Shape_1"
+  op: "Shape"
+  input: "clip_by_value"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/sub_2_grad/BroadcastGradientArgs"
+  op: "BroadcastGradientArgs"
+  input: "gradients/sub_2_grad/Shape"
+  input: "gradients/sub_2_grad/Shape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/sub_2_grad/Sum"
+  op: "Sum"
+  input: "gradients/add_1_grad/tuple/control_dependency"
+  input: "gradients/sub_2_grad/BroadcastGradientArgs"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/sub_2_grad/Reshape"
+  op: "Reshape"
+  input: "gradients/sub_2_grad/Sum"
+  input: "gradients/sub_2_grad/Shape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/sub_2_grad/Neg"
+  op: "Neg"
+  input: "gradients/add_1_grad/tuple/control_dependency"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/sub_2_grad/Sum_1"
+  op: "Sum"
+  input: "gradients/sub_2_grad/Neg"
+  input: "gradients/sub_2_grad/BroadcastGradientArgs:1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/sub_2_grad/Reshape_1"
+  op: "Reshape"
+  input: "gradients/sub_2_grad/Sum_1"
+  input: "gradients/sub_2_grad/Shape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/sub_2_grad/tuple/group_deps"
+  op: "NoOp"
+  input: "^gradients/sub_2_grad/Reshape"
+  input: "^gradients/sub_2_grad/Reshape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "gradients/sub_2_grad/tuple/control_dependency"
+  op: "Identity"
+  input: "gradients/sub_2_grad/Reshape"
+  input: "^gradients/sub_2_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/sub_2_grad/Reshape"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/sub_2_grad/tuple/control_dependency_1"
+  op: "Identity"
+  input: "gradients/sub_2_grad/Reshape_1"
+  input: "^gradients/sub_2_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/sub_2_grad/Reshape_1"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/AddN"
+  op: "AddN"
+  input: "gradients/add_grad/tuple/control_dependency"
+  input: "gradients/sub_2_grad/tuple/control_dependency_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/add_grad/Reshape"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value_grad/Shape"
+  op: "Shape"
+  input: "clip_by_value/Minimum"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value_grad/Shape_1"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+          }
+        }
+      }
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value_grad/Shape_2"
+  op: "Shape"
+  input: "gradients/AddN"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value_grad/zeros/Const"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value_grad/zeros"
+  op: "Fill"
+  input: "gradients/clip_by_value_grad/Shape_2"
+  input: "gradients/clip_by_value_grad/zeros/Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "index_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value_grad/GreaterEqual"
+  op: "GreaterEqual"
+  input: "clip_by_value/Minimum"
+  input: "Const_5"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value_grad/BroadcastGradientArgs"
+  op: "BroadcastGradientArgs"
+  input: "gradients/clip_by_value_grad/Shape"
+  input: "gradients/clip_by_value_grad/Shape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value_grad/SelectV2"
+  op: "SelectV2"
+  input: "gradients/clip_by_value_grad/GreaterEqual"
+  input: "gradients/AddN"
+  input: "gradients/clip_by_value_grad/zeros"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value_grad/Sum"
+  op: "Sum"
+  input: "gradients/clip_by_value_grad/SelectV2"
+  input: "gradients/clip_by_value_grad/BroadcastGradientArgs"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value_grad/Reshape"
+  op: "Reshape"
+  input: "gradients/clip_by_value_grad/Sum"
+  input: "gradients/clip_by_value_grad/Shape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value_grad/SelectV2_1"
+  op: "SelectV2"
+  input: "gradients/clip_by_value_grad/GreaterEqual"
+  input: "gradients/clip_by_value_grad/zeros"
+  input: "gradients/AddN"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value_grad/Sum_1"
+  op: "Sum"
+  input: "gradients/clip_by_value_grad/SelectV2_1"
+  input: "gradients/clip_by_value_grad/BroadcastGradientArgs:1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value_grad/Reshape_1"
+  op: "Reshape"
+  input: "gradients/clip_by_value_grad/Sum_1"
+  input: "gradients/clip_by_value_grad/Shape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value_grad/tuple/group_deps"
+  op: "NoOp"
+  input: "^gradients/clip_by_value_grad/Reshape"
+  input: "^gradients/clip_by_value_grad/Reshape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "gradients/clip_by_value_grad/tuple/control_dependency"
+  op: "Identity"
+  input: "gradients/clip_by_value_grad/Reshape"
+  input: "^gradients/clip_by_value_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/clip_by_value_grad/Reshape"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value_grad/tuple/control_dependency_1"
+  op: "Identity"
+  input: "gradients/clip_by_value_grad/Reshape_1"
+  input: "^gradients/clip_by_value_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/clip_by_value_grad/Reshape_1"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value/Minimum_grad/Shape"
+  op: "Shape"
+  input: "Reshape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value/Minimum_grad/Shape_1"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+          }
+        }
+      }
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value/Minimum_grad/Shape_2"
+  op: "Shape"
+  input: "gradients/clip_by_value_grad/tuple/control_dependency"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value/Minimum_grad/zeros/Const"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value/Minimum_grad/zeros"
+  op: "Fill"
+  input: "gradients/clip_by_value/Minimum_grad/Shape_2"
+  input: "gradients/clip_by_value/Minimum_grad/zeros/Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "index_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value/Minimum_grad/LessEqual"
+  op: "LessEqual"
+  input: "Reshape"
+  input: "sub"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value/Minimum_grad/BroadcastGradientArgs"
+  op: "BroadcastGradientArgs"
+  input: "gradients/clip_by_value/Minimum_grad/Shape"
+  input: "gradients/clip_by_value/Minimum_grad/Shape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value/Minimum_grad/SelectV2"
+  op: "SelectV2"
+  input: "gradients/clip_by_value/Minimum_grad/LessEqual"
+  input: "gradients/clip_by_value_grad/tuple/control_dependency"
+  input: "gradients/clip_by_value/Minimum_grad/zeros"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value/Minimum_grad/Sum"
+  op: "Sum"
+  input: "gradients/clip_by_value/Minimum_grad/SelectV2"
+  input: "gradients/clip_by_value/Minimum_grad/BroadcastGradientArgs"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value/Minimum_grad/Reshape"
+  op: "Reshape"
+  input: "gradients/clip_by_value/Minimum_grad/Sum"
+  input: "gradients/clip_by_value/Minimum_grad/Shape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value/Minimum_grad/SelectV2_1"
+  op: "SelectV2"
+  input: "gradients/clip_by_value/Minimum_grad/LessEqual"
+  input: "gradients/clip_by_value/Minimum_grad/zeros"
+  input: "gradients/clip_by_value_grad/tuple/control_dependency"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value/Minimum_grad/Sum_1"
+  op: "Sum"
+  input: "gradients/clip_by_value/Minimum_grad/SelectV2_1"
+  input: "gradients/clip_by_value/Minimum_grad/BroadcastGradientArgs:1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value/Minimum_grad/Reshape_1"
+  op: "Reshape"
+  input: "gradients/clip_by_value/Minimum_grad/Sum_1"
+  input: "gradients/clip_by_value/Minimum_grad/Shape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value/Minimum_grad/tuple/group_deps"
+  op: "NoOp"
+  input: "^gradients/clip_by_value/Minimum_grad/Reshape"
+  input: "^gradients/clip_by_value/Minimum_grad/Reshape_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "gradients/clip_by_value/Minimum_grad/tuple/control_dependency"
+  op: "Identity"
+  input: "gradients/clip_by_value/Minimum_grad/Reshape"
+  input: "^gradients/clip_by_value/Minimum_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/clip_by_value/Minimum_grad/Reshape"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/clip_by_value/Minimum_grad/tuple/control_dependency_1"
+  op: "Identity"
+  input: "gradients/clip_by_value/Minimum_grad/Reshape_1"
+  input: "^gradients/clip_by_value/Minimum_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/clip_by_value/Minimum_grad/Reshape_1"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/Reshape_grad/Shape"
+  op: "Shape"
+  input: "Sigmoid"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/Reshape_grad/Reshape"
+  op: "Reshape"
+  input: "gradients/clip_by_value/Minimum_grad/tuple/control_dependency"
+  input: "gradients/Reshape_grad/Shape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/Sigmoid_grad/SigmoidGrad"
+  op: "SigmoidGrad"
+  input: "Sigmoid"
+  input: "gradients/Reshape_grad/Reshape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/dense_1/Relu_grad/ReluGrad"
+  op: "ReluGrad"
+  input: "gradients/Sigmoid_grad/SigmoidGrad"
+  input: "dense_1/Relu"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/dense_1/BiasAdd_grad/BiasAddGrad"
+  op: "BiasAddGrad"
+  input: "gradients/dense_1/Relu_grad/ReluGrad"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "data_format"
+    value {
+      s: "NHWC"
+    }
+  }
+}
+node {
+  name: "gradients/dense_1/BiasAdd_grad/tuple/group_deps"
+  op: "NoOp"
+  input: "^gradients/dense_1/BiasAdd_grad/BiasAddGrad"
+  input: "^gradients/dense_1/Relu_grad/ReluGrad"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "gradients/dense_1/BiasAdd_grad/tuple/control_dependency"
+  op: "Identity"
+  input: "gradients/dense_1/Relu_grad/ReluGrad"
+  input: "^gradients/dense_1/BiasAdd_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/dense_1/Relu_grad/ReluGrad"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/dense_1/BiasAdd_grad/tuple/control_dependency_1"
+  op: "Identity"
+  input: "gradients/dense_1/BiasAdd_grad/BiasAddGrad"
+  input: "^gradients/dense_1/BiasAdd_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/dense_1/BiasAdd_grad/BiasAddGrad"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/dense_1/Tensordot_grad/Shape"
+  op: "Shape"
+  input: "dense_1/Tensordot/MatMul"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/dense_1/Tensordot_grad/Reshape"
+  op: "Reshape"
+  input: "gradients/dense_1/BiasAdd_grad/tuple/control_dependency"
+  input: "gradients/dense_1/Tensordot_grad/Shape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/dense_1/Tensordot/MatMul_grad/MatMul"
+  op: "MatMul"
+  input: "gradients/dense_1/Tensordot_grad/Reshape"
+  input: "dense_1/Tensordot/ReadVariableOp"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "transpose_a"
+    value {
+      b: false
+    }
+  }
+  attr {
+    key: "transpose_b"
+    value {
+      b: true
+    }
+  }
+}
+node {
+  name: "gradients/dense_1/Tensordot/MatMul_grad/MatMul_1"
+  op: "MatMul"
+  input: "dense_1/Tensordot/Reshape"
+  input: "gradients/dense_1/Tensordot_grad/Reshape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "transpose_a"
+    value {
+      b: true
+    }
+  }
+  attr {
+    key: "transpose_b"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/dense_1/Tensordot/MatMul_grad/tuple/group_deps"
+  op: "NoOp"
+  input: "^gradients/dense_1/Tensordot/MatMul_grad/MatMul"
+  input: "^gradients/dense_1/Tensordot/MatMul_grad/MatMul_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "gradients/dense_1/Tensordot/MatMul_grad/tuple/control_dependency"
+  op: "Identity"
+  input: "gradients/dense_1/Tensordot/MatMul_grad/MatMul"
+  input: "^gradients/dense_1/Tensordot/MatMul_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/dense_1/Tensordot/MatMul_grad/MatMul"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/dense_1/Tensordot/MatMul_grad/tuple/control_dependency_1"
+  op: "Identity"
+  input: "gradients/dense_1/Tensordot/MatMul_grad/MatMul_1"
+  input: "^gradients/dense_1/Tensordot/MatMul_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/dense_1/Tensordot/MatMul_grad/MatMul_1"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/dense_1/Tensordot/Reshape_grad/Shape"
+  op: "Shape"
+  input: "dense_1/Tensordot/transpose"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/dense_1/Tensordot/Reshape_grad/Reshape"
+  op: "Reshape"
+  input: "gradients/dense_1/Tensordot/MatMul_grad/tuple/control_dependency"
+  input: "gradients/dense_1/Tensordot/Reshape_grad/Shape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/dense_1/Tensordot/transpose_grad/InvertPermutation"
+  op: "InvertPermutation"
+  input: "dense_1/Tensordot/concat"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/dense_1/Tensordot/transpose_grad/transpose"
+  op: "Transpose"
+  input: "gradients/dense_1/Tensordot/Reshape_grad/Reshape"
+  input: "gradients/dense_1/Tensordot/transpose_grad/InvertPermutation"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tperm"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/dense/Relu_grad/ReluGrad"
+  op: "ReluGrad"
+  input: "gradients/dense_1/Tensordot/transpose_grad/transpose"
+  input: "dense/Relu"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/dense/BiasAdd_grad/BiasAddGrad"
+  op: "BiasAddGrad"
+  input: "gradients/dense/Relu_grad/ReluGrad"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "data_format"
+    value {
+      s: "NHWC"
+    }
+  }
+}
+node {
+  name: "gradients/dense/BiasAdd_grad/tuple/group_deps"
+  op: "NoOp"
+  input: "^gradients/dense/BiasAdd_grad/BiasAddGrad"
+  input: "^gradients/dense/Relu_grad/ReluGrad"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "gradients/dense/BiasAdd_grad/tuple/control_dependency"
+  op: "Identity"
+  input: "gradients/dense/Relu_grad/ReluGrad"
+  input: "^gradients/dense/BiasAdd_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/dense/Relu_grad/ReluGrad"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/dense/BiasAdd_grad/tuple/control_dependency_1"
+  op: "Identity"
+  input: "gradients/dense/BiasAdd_grad/BiasAddGrad"
+  input: "^gradients/dense/BiasAdd_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/dense/BiasAdd_grad/BiasAddGrad"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/dense/Tensordot_grad/Shape"
+  op: "Shape"
+  input: "dense/Tensordot/MatMul"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/dense/Tensordot_grad/Reshape"
+  op: "Reshape"
+  input: "gradients/dense/BiasAdd_grad/tuple/control_dependency"
+  input: "gradients/dense/Tensordot_grad/Shape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/dense/Tensordot/MatMul_grad/MatMul"
+  op: "MatMul"
+  input: "gradients/dense/Tensordot_grad/Reshape"
+  input: "dense/Tensordot/ReadVariableOp"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "transpose_a"
+    value {
+      b: false
+    }
+  }
+  attr {
+    key: "transpose_b"
+    value {
+      b: true
+    }
+  }
+}
+node {
+  name: "gradients/dense/Tensordot/MatMul_grad/MatMul_1"
+  op: "MatMul"
+  input: "dense/Tensordot/Reshape"
+  input: "gradients/dense/Tensordot_grad/Reshape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "transpose_a"
+    value {
+      b: true
+    }
+  }
+  attr {
+    key: "transpose_b"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "gradients/dense/Tensordot/MatMul_grad/tuple/group_deps"
+  op: "NoOp"
+  input: "^gradients/dense/Tensordot/MatMul_grad/MatMul"
+  input: "^gradients/dense/Tensordot/MatMul_grad/MatMul_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "gradients/dense/Tensordot/MatMul_grad/tuple/control_dependency"
+  op: "Identity"
+  input: "gradients/dense/Tensordot/MatMul_grad/MatMul"
+  input: "^gradients/dense/Tensordot/MatMul_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/dense/Tensordot/MatMul_grad/MatMul"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/dense/Tensordot/MatMul_grad/tuple/control_dependency_1"
+  op: "Identity"
+  input: "gradients/dense/Tensordot/MatMul_grad/MatMul_1"
+  input: "^gradients/dense/Tensordot/MatMul_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/dense/Tensordot/MatMul_grad/MatMul_1"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/dense/Tensordot/Reshape_grad/Shape"
+  op: "Shape"
+  input: "dense/Tensordot/transpose"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/dense/Tensordot/Reshape_grad/Reshape"
+  op: "Reshape"
+  input: "gradients/dense/Tensordot/MatMul_grad/tuple/control_dependency"
+  input: "gradients/dense/Tensordot/Reshape_grad/Shape"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/dense/Tensordot/transpose_grad/InvertPermutation"
+  op: "InvertPermutation"
+  input: "dense/Tensordot/concat"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/dense/Tensordot/transpose_grad/transpose"
+  op: "Transpose"
+  input: "gradients/dense/Tensordot/Reshape_grad/Reshape"
+  input: "gradients/dense/Tensordot/transpose_grad/InvertPermutation"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tperm"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/feats_grad/Rank"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 3
+      }
+    }
+  }
+}
+node {
+  name: "gradients/feats_grad/mod"
+  op: "FloorMod"
+  input: "feats/axis"
+  input: "gradients/feats_grad/Rank"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/feats_grad/Shape"
+  op: "Shape"
+  input: "feats_0"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/feats_grad/ShapeN"
+  op: "ShapeN"
+  input: "feats_0"
+  input: "feats_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/feats_grad/ConcatOffset"
+  op: "ConcatOffset"
+  input: "gradients/feats_grad/mod"
+  input: "gradients/feats_grad/ShapeN"
+  input: "gradients/feats_grad/ShapeN:1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+}
+node {
+  name: "gradients/feats_grad/Slice"
+  op: "Slice"
+  input: "gradients/dense/Tensordot/transpose_grad/transpose"
+  input: "gradients/feats_grad/ConcatOffset"
+  input: "gradients/feats_grad/ShapeN"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Index"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/feats_grad/Slice_1"
+  op: "Slice"
+  input: "gradients/dense/Tensordot/transpose_grad/transpose"
+  input: "gradients/feats_grad/ConcatOffset:1"
+  input: "gradients/feats_grad/ShapeN:1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Index"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/feats_grad/tuple/group_deps"
+  op: "NoOp"
+  input: "^gradients/feats_grad/Slice"
+  input: "^gradients/feats_grad/Slice_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "gradients/feats_grad/tuple/control_dependency"
+  op: "Identity"
+  input: "gradients/feats_grad/Slice"
+  input: "^gradients/feats_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/feats_grad/Slice"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/feats_grad/tuple/control_dependency_1"
+  op: "Identity"
+  input: "gradients/feats_grad/Slice_1"
+  input: "^gradients/feats_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/feats_grad/Slice_1"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/feats_0_grad/Rank"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 3
+      }
+    }
+  }
+}
+node {
+  name: "gradients/feats_0_grad/mod"
+  op: "FloorMod"
+  input: "feats_0/axis"
+  input: "gradients/feats_0_grad/Rank"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/feats_0_grad/Shape"
+  op: "Shape"
+  input: "lu_usr_emb/Identity_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/feats_0_grad/ShapeN"
+  op: "ShapeN"
+  input: "lu_usr_emb/Identity_1"
+  input: "lu_item_emb/Identity_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/feats_0_grad/ConcatOffset"
+  op: "ConcatOffset"
+  input: "gradients/feats_0_grad/mod"
+  input: "gradients/feats_0_grad/ShapeN"
+  input: "gradients/feats_0_grad/ShapeN:1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+}
+node {
+  name: "gradients/feats_0_grad/Slice"
+  op: "Slice"
+  input: "gradients/feats_grad/tuple/control_dependency"
+  input: "gradients/feats_0_grad/ConcatOffset"
+  input: "gradients/feats_0_grad/ShapeN"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Index"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/feats_0_grad/Slice_1"
+  op: "Slice"
+  input: "gradients/feats_grad/tuple/control_dependency"
+  input: "gradients/feats_0_grad/ConcatOffset:1"
+  input: "gradients/feats_0_grad/ShapeN:1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Index"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/feats_0_grad/tuple/group_deps"
+  op: "NoOp"
+  input: "^gradients/feats_0_grad/Slice"
+  input: "^gradients/feats_0_grad/Slice_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "gradients/feats_0_grad/tuple/control_dependency"
+  op: "Identity"
+  input: "gradients/feats_0_grad/Slice"
+  input: "^gradients/feats_0_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/feats_0_grad/Slice"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/feats_0_grad/tuple/control_dependency_1"
+  op: "Identity"
+  input: "gradients/feats_0_grad/Slice_1"
+  input: "^gradients/feats_0_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/feats_0_grad/Slice_1"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/feats_1_grad/Rank"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 3
+      }
+    }
+  }
+}
+node {
+  name: "gradients/feats_1_grad/mod"
+  op: "FloorMod"
+  input: "feats_1/axis"
+  input: "gradients/feats_1_grad/Rank"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/feats_1_grad/Shape"
+  op: "Shape"
+  input: "lu_usr_emb_1/Identity_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/feats_1_grad/ShapeN"
+  op: "ShapeN"
+  input: "lu_usr_emb_1/Identity_1"
+  input: "lu_item_emb_1/Identity_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/feats_1_grad/ConcatOffset"
+  op: "ConcatOffset"
+  input: "gradients/feats_1_grad/mod"
+  input: "gradients/feats_1_grad/ShapeN"
+  input: "gradients/feats_1_grad/ShapeN:1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+}
+node {
+  name: "gradients/feats_1_grad/Slice"
+  op: "Slice"
+  input: "gradients/feats_grad/tuple/control_dependency_1"
+  input: "gradients/feats_1_grad/ConcatOffset"
+  input: "gradients/feats_1_grad/ShapeN"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Index"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/feats_1_grad/Slice_1"
+  op: "Slice"
+  input: "gradients/feats_grad/tuple/control_dependency_1"
+  input: "gradients/feats_1_grad/ConcatOffset:1"
+  input: "gradients/feats_1_grad/ShapeN:1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Index"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "gradients/feats_1_grad/tuple/group_deps"
+  op: "NoOp"
+  input: "^gradients/feats_1_grad/Slice"
+  input: "^gradients/feats_1_grad/Slice_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "gradients/feats_1_grad/tuple/control_dependency"
+  op: "Identity"
+  input: "gradients/feats_1_grad/Slice"
+  input: "^gradients/feats_1_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/feats_1_grad/Slice"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/feats_1_grad/tuple/control_dependency_1"
+  op: "Identity"
+  input: "gradients/feats_1_grad/Slice_1"
+  input: "^gradients/feats_1_grad/tuple/group_deps"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@gradients/feats_1_grad/Slice_1"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_grad/Const"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 2
+          }
+        }
+        tensor_content: "\000\004\000\000\010\000\000\000"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_grad/Size"
+  op: "Size"
+  input: "split"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_grad/ExpandDims/dim"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_grad/ExpandDims"
+  op: "ExpandDims"
+  input: "gradients/lu_usr_emb_grad/Size"
+  input: "gradients/lu_usr_emb_grad/ExpandDims/dim"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tdim"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_grad/strided_slice/stack"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_grad/strided_slice/stack_1"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_grad/strided_slice/stack_2"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_grad/strided_slice"
+  op: "StridedSlice"
+  input: "gradients/lu_usr_emb_grad/Const"
+  input: "gradients/lu_usr_emb_grad/strided_slice/stack"
+  input: "gradients/lu_usr_emb_grad/strided_slice/stack_1"
+  input: "gradients/lu_usr_emb_grad/strided_slice/stack_2"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Index"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "begin_mask"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "ellipsis_mask"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "end_mask"
+    value {
+      i: 1
+    }
+  }
+  attr {
+    key: "new_axis_mask"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "shrink_axis_mask"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_grad/concat/axis"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_grad/concat"
+  op: "ConcatV2"
+  input: "gradients/lu_usr_emb_grad/ExpandDims"
+  input: "gradients/lu_usr_emb_grad/strided_slice"
+  input: "gradients/lu_usr_emb_grad/concat/axis"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_grad/Reshape"
+  op: "Reshape"
+  input: "gradients/feats_0_grad/tuple/control_dependency"
+  input: "gradients/lu_usr_emb_grad/concat"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_grad/Reshape_1"
+  op: "Reshape"
+  input: "split"
+  input: "gradients/lu_usr_emb_grad/ExpandDims"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_grad/Const"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 2
+          }
+        }
+        tensor_content: "\000\001\000\000\010\000\000\000"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_grad/Size"
+  op: "Size"
+  input: "split:1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_grad/ExpandDims/dim"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_grad/ExpandDims"
+  op: "ExpandDims"
+  input: "gradients/lu_item_emb_grad/Size"
+  input: "gradients/lu_item_emb_grad/ExpandDims/dim"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tdim"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_grad/strided_slice/stack"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_grad/strided_slice/stack_1"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_grad/strided_slice/stack_2"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_grad/strided_slice"
+  op: "StridedSlice"
+  input: "gradients/lu_item_emb_grad/Const"
+  input: "gradients/lu_item_emb_grad/strided_slice/stack"
+  input: "gradients/lu_item_emb_grad/strided_slice/stack_1"
+  input: "gradients/lu_item_emb_grad/strided_slice/stack_2"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Index"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "begin_mask"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "ellipsis_mask"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "end_mask"
+    value {
+      i: 1
+    }
+  }
+  attr {
+    key: "new_axis_mask"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "shrink_axis_mask"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_grad/concat/axis"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_grad/concat"
+  op: "ConcatV2"
+  input: "gradients/lu_item_emb_grad/ExpandDims"
+  input: "gradients/lu_item_emb_grad/strided_slice"
+  input: "gradients/lu_item_emb_grad/concat/axis"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_grad/Reshape"
+  op: "Reshape"
+  input: "gradients/feats_0_grad/tuple/control_dependency_1"
+  input: "gradients/lu_item_emb_grad/concat"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_grad/Reshape_1"
+  op: "Reshape"
+  input: "split:1"
+  input: "gradients/lu_item_emb_grad/ExpandDims"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_1_grad/Const"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 2
+          }
+        }
+        tensor_content: "\000\004\000\000\010\000\000\000"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_1_grad/Size"
+  op: "Size"
+  input: "split_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_1_grad/ExpandDims/dim"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_1_grad/ExpandDims"
+  op: "ExpandDims"
+  input: "gradients/lu_usr_emb_1_grad/Size"
+  input: "gradients/lu_usr_emb_1_grad/ExpandDims/dim"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tdim"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_1_grad/strided_slice/stack"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_1_grad/strided_slice/stack_1"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_1_grad/strided_slice/stack_2"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_1_grad/strided_slice"
+  op: "StridedSlice"
+  input: "gradients/lu_usr_emb_1_grad/Const"
+  input: "gradients/lu_usr_emb_1_grad/strided_slice/stack"
+  input: "gradients/lu_usr_emb_1_grad/strided_slice/stack_1"
+  input: "gradients/lu_usr_emb_1_grad/strided_slice/stack_2"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Index"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "begin_mask"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "ellipsis_mask"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "end_mask"
+    value {
+      i: 1
+    }
+  }
+  attr {
+    key: "new_axis_mask"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "shrink_axis_mask"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_1_grad/concat/axis"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_1_grad/concat"
+  op: "ConcatV2"
+  input: "gradients/lu_usr_emb_1_grad/ExpandDims"
+  input: "gradients/lu_usr_emb_1_grad/strided_slice"
+  input: "gradients/lu_usr_emb_1_grad/concat/axis"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_1_grad/Reshape"
+  op: "Reshape"
+  input: "gradients/feats_1_grad/tuple/control_dependency"
+  input: "gradients/lu_usr_emb_1_grad/concat"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/lu_usr_emb_1_grad/Reshape_1"
+  op: "Reshape"
+  input: "split_1"
+  input: "gradients/lu_usr_emb_1_grad/ExpandDims"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_1_grad/Const"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 2
+          }
+        }
+        tensor_content: "\000\001\000\000\010\000\000\000"
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_1_grad/Size"
+  op: "Size"
+  input: "split_1:1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "out_type"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_1_grad/ExpandDims/dim"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_1_grad/ExpandDims"
+  op: "ExpandDims"
+  input: "gradients/lu_item_emb_1_grad/Size"
+  input: "gradients/lu_item_emb_1_grad/ExpandDims/dim"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tdim"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_1_grad/strided_slice/stack"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_1_grad/strided_slice/stack_1"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_1_grad/strided_slice/stack_2"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 1
+          }
+        }
+        int_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_1_grad/strided_slice"
+  op: "StridedSlice"
+  input: "gradients/lu_item_emb_1_grad/Const"
+  input: "gradients/lu_item_emb_1_grad/strided_slice/stack"
+  input: "gradients/lu_item_emb_1_grad/strided_slice/stack_1"
+  input: "gradients/lu_item_emb_1_grad/strided_slice/stack_2"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Index"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "begin_mask"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "ellipsis_mask"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "end_mask"
+    value {
+      i: 1
+    }
+  }
+  attr {
+    key: "new_axis_mask"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "shrink_axis_mask"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_1_grad/concat/axis"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_1_grad/concat"
+  op: "ConcatV2"
+  input: "gradients/lu_item_emb_1_grad/ExpandDims"
+  input: "gradients/lu_item_emb_1_grad/strided_slice"
+  input: "gradients/lu_item_emb_1_grad/concat/axis"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_1_grad/Reshape"
+  op: "Reshape"
+  input: "gradients/feats_1_grad/tuple/control_dependency_1"
+  input: "gradients/lu_item_emb_1_grad/concat"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/lu_item_emb_1_grad/Reshape_1"
+  op: "Reshape"
+  input: "split_1:1"
+  input: "gradients/lu_item_emb_1_grad/ExpandDims"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/concat/axis"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/concat"
+  op: "ConcatV2"
+  input: "gradients/lu_usr_emb_grad/Reshape"
+  input: "gradients/lu_usr_emb_1_grad/Reshape"
+  input: "gradients/concat/axis"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/concat_1/axis"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/concat_1"
+  op: "ConcatV2"
+  input: "gradients/lu_usr_emb_grad/Reshape_1"
+  input: "gradients/lu_usr_emb_1_grad/Reshape_1"
+  input: "gradients/concat_1/axis"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/concat_2/axis"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/concat_2"
+  op: "ConcatV2"
+  input: "gradients/lu_item_emb_grad/Reshape"
+  input: "gradients/lu_item_emb_1_grad/Reshape"
+  input: "gradients/concat_2/axis"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "gradients/concat_3/axis"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+        }
+        int_val: 0
+      }
+    }
+  }
+}
+node {
+  name: "gradients/concat_3"
+  op: "ConcatV2"
+  input: "gradients/lu_item_emb_grad/Reshape_1"
+  input: "gradients/lu_item_emb_1_grad/Reshape_1"
+  input: "gradients/concat_3/axis"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "N"
+    value {
+      i: 2
+    }
+  }
+  attr {
+    key: "T"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "GradientDescent/learning_rate"
+  op: "Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 0.001
+      }
+    }
+  }
+}
+node {
+  name: "GradientDescent/update_user_embeddings/Neg"
+  op: "Neg"
+  input: "gradients/concat"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@user_embeddings"
+      }
+    }
+  }
+}
+node {
+  name: "GradientDescent/update_user_embeddings/mul/y"
+  op: "Const"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@user_embeddings"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 0.001
+      }
+    }
+  }
+}
+node {
+  name: "GradientDescent/update_user_embeddings/mul"
+  op: "Mul"
+  input: "GradientDescent/update_user_embeddings/Neg"
+  input: "GradientDescent/update_user_embeddings/mul/y"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@user_embeddings"
+      }
+    }
+  }
+}
+node {
+  name: "GradientDescent/update_user_embeddings/ResourceScatterAdd"
+  op: "ResourceScatterAdd"
+  input: "user_embeddings"
+  input: "gradients/concat_1"
+  input: "GradientDescent/update_user_embeddings/mul"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "Tindices"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@user_embeddings"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "GradientDescent/update_item_embeddings/Neg"
+  op: "Neg"
+  input: "gradients/concat_2"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@item_embeddings"
+      }
+    }
+  }
+}
+node {
+  name: "GradientDescent/update_item_embeddings/mul/y"
+  op: "Const"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@item_embeddings"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 0.001
+      }
+    }
+  }
+}
+node {
+  name: "GradientDescent/update_item_embeddings/mul"
+  op: "Mul"
+  input: "GradientDescent/update_item_embeddings/Neg"
+  input: "GradientDescent/update_item_embeddings/mul/y"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@item_embeddings"
+      }
+    }
+  }
+}
+node {
+  name: "GradientDescent/update_item_embeddings/ResourceScatterAdd"
+  op: "ResourceScatterAdd"
+  input: "item_embeddings"
+  input: "gradients/concat_3"
+  input: "GradientDescent/update_item_embeddings/mul"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+  attr {
+    key: "Tindices"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@item_embeddings"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "GradientDescent/update_dense/kernel/ResourceApplyGradientDescent"
+  op: "ResourceApplyGradientDescent"
+  input: "dense/kernel"
+  input: "GradientDescent/learning_rate"
+  input: "gradients/dense/Tensordot/MatMul_grad/tuple/control_dependency_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense/kernel"
+      }
+    }
+  }
+  attr {
+    key: "use_locking"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "GradientDescent/update_dense/bias/ResourceApplyGradientDescent"
+  op: "ResourceApplyGradientDescent"
+  input: "dense/bias"
+  input: "GradientDescent/learning_rate"
+  input: "gradients/dense/BiasAdd_grad/tuple/control_dependency_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense/bias"
+      }
+    }
+  }
+  attr {
+    key: "use_locking"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "GradientDescent/update_dense_1/kernel/ResourceApplyGradientDescent"
+  op: "ResourceApplyGradientDescent"
+  input: "dense_1/kernel"
+  input: "GradientDescent/learning_rate"
+  input: "gradients/dense_1/Tensordot/MatMul_grad/tuple/control_dependency_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense_1/kernel"
+      }
+    }
+  }
+  attr {
+    key: "use_locking"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "GradientDescent/update_dense_1/bias/ResourceApplyGradientDescent"
+  op: "ResourceApplyGradientDescent"
+  input: "dense_1/bias"
+  input: "GradientDescent/learning_rate"
+  input: "gradients/dense_1/BiasAdd_grad/tuple/control_dependency_1"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@dense_1/bias"
+      }
+    }
+  }
+  attr {
+    key: "use_locking"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "GradientDescent/update/NoOp"
+  op: "NoOp"
+  input: "^GradientDescent/update_dense/bias/ResourceApplyGradientDescent"
+  input: "^GradientDescent/update_dense/kernel/ResourceApplyGradientDescent"
+  input: "^GradientDescent/update_dense_1/bias/ResourceApplyGradientDescent"
+  input: "^GradientDescent/update_dense_1/kernel/ResourceApplyGradientDescent"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "GradientDescent/update/NoOp_1"
+  op: "NoOp"
+  input: "^GradientDescent/update_user_embeddings/ResourceScatterAdd"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "GradientDescent/update/NoOp_2"
+  op: "NoOp"
+  input: "^GradientDescent/update_item_embeddings/ResourceScatterAdd"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+}
+node {
+  name: "GradientDescent/update"
+  op: "NoOp"
+  input: "^GradientDescent/update/NoOp"
+  input: "^GradientDescent/update/NoOp_1"
+  input: "^GradientDescent/update/NoOp_2"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "GradientDescent/Const"
+  op: "Const"
+  input: "^GradientDescent/update"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@global_step"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT64
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT64
+        tensor_shape {
+        }
+        int64_val: 1
+      }
+    }
+  }
+}
+node {
+  name: "GradientDescent"
+  op: "AssignAddVariableOp"
+  input: "global_step"
+  input: "GradientDescent/Const"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@global_step"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT64
+    }
+  }
+}
+node {
+  name: "init/NoOp"
+  op: "NoOp"
+  input: "^dense/bias/Assign"
+  input: "^dense/kernel/Assign"
+  input: "^dense_1/bias/Assign"
+  input: "^dense_1/kernel/Assign"
+  input: "^global_step/Assign"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "init/NoOp_1"
+  op: "NoOp"
+  input: "^user_embeddings/Assign"
+  device: "/job:ps/replica:0/task:0/device:CPU:0"
+}
+node {
+  name: "init/NoOp_2"
+  op: "NoOp"
+  input: "^item_embeddings/Assign"
+  device: "/job:ps/replica:0/task:1/device:CPU:0"
+}
+node {
+  name: "init"
+  op: "NoOp"
+  input: "^init/NoOp"
+  input: "^init/NoOp_1"
+  input: "^init/NoOp_2"
+  device: "/job:chief/replica:0/task:0/device:CPU:0"
+}
+library {
+}
+versions {
+  producer: 561
+  min_consumer: 12
+}

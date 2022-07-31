@@ -10,13 +10,11 @@ tf_custom_op_library(
     ],
 )
 
-
 py_library(
     name = "deep_dot",
     srcs = ["deep_dot.py"],
     data = [":tf_deep_dot.so"]
 )
-
 
 py_test(
     name="deep_dot_test",
@@ -27,11 +25,37 @@ py_test(
 )
 
 
-cc_binary(
-    name = "example",
-    srcs = [ 
-        "main.cc",
-    ],
-    visibility = ["//visibility:public"],
+tf_cc_library(
+    name = "graph_optimization_pass.so",
+    srcs = ["runtime/lib/graph_optimization_pass.cc"],
 )
 
+
+py_library(
+    name = "pass_utils",
+    srcs = ["pass_utils.py"],
+    data = [":graph_optimization_pass.so"],
+)
+
+
+py_library(
+    name = "utils",
+    srcs = ["utils.py"],
+)
+
+
+py_library(
+    name = "local_cluster",
+    srcs = ["local_cluster.py"],
+    deps = [":utils"]
+)
+
+py_binary(
+    name= "model",
+    srcs = ["model.py"],
+    deps = [
+        ":local_cluster",
+        ":pass_utils",
+    ],
+    data = ["//data:test_files"]
+)
