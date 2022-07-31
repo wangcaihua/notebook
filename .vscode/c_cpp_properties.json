@@ -1,19 +1,22 @@
-{
+{   
     "configurations": [
         {
-            "name": "Linux",
+            "name": "Mac",
             "includePath": [
                 "${workspaceFolder}",
-                "${workspaceFolder}/concurrency",
-                "${workspaceFolder}/tfext",
-                "/Users/fitz/code/notebook/bazel-notebook/external/com_google_googletest/googletest/include/**",
+                "${workspaceFolder}/**",  
+                "/private/var/tmp/_bazel_fitz/3558c7b26f0678a7a819549aed6127a8/external/com_google_googletest/googletest/include/**",
                 "/Users/fitz/opt/anaconda3/envs/py8/lib/python3.8/site-packages/tensorflow/include/**"
             ],
             "defines": [],
-            "compilerPath": "/usr/bin/gcc",
+            "macFrameworkPath": [],
+            "compilerPath": "/usr/local/bin/gcc-11",
             "cStandard": "gnu17",
-            "cppStandard": "gnu++14",
-            "intelliSenseMode": "linux-gcc-x64"
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "macos-gcc-x64",
+            "browse": {
+                "databaseFilename": ".vscode/index.db"
+            }
         }
     ],
     "version": 4

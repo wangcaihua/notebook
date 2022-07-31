@@ -1,6 +1,12 @@
 {
     "python.defaultInterpreterPath": "/Users/fitz/opt/anaconda3/envs/py8/bin/python",
     "editor.tabSize": 2,
+    "C_Cpp.files.exclude": {
+        "bazel-bin/**": true,
+        "bazel-notebook/**": true,
+        "bazel-out/**": true,
+        "bazel-testlogs/**": true,
+    },
     "files.associations": {
         "__bit_reference": "cpp",
         "__bits": "cpp",
@@ -93,6 +99,9 @@
         "tensor": "cpp",
         "cfenv": "cpp",
         "future": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "hash_map": "cpp",
+        "hash_set": "cpp",
+        "slist": "cpp"
     }
 }

@@ -16,16 +16,15 @@ def to_attr_value(value: Any) -> AttrValue:
       if isinstance(ele, int):
         result.list.i.append(ele)
       elif isinstance(ele, str):
-        result.list.s.append(ele)
+        result.list.s.append(ele.encode('utf-8'))
       elif isinstance(ele, float):
         result.list.f.append(ele)
       elif isinstance(ele, bool):
         result.list.b.append(ele)
       else:
         raise Exception("data type in list not supported")
-      result.list.s.append(ele)
   elif isinstance(value, str):
-    result.s = value
+    result.s = value.encode('utf-8')
   elif isinstance(value, int):
     result.i = value
   elif isinstance(value, float):
@@ -39,9 +38,9 @@ def to_attr_value(value: Any) -> AttrValue:
 
 def add_custom_graph_optimizer(config: ConfigProto, name: str, parameters: Dict[str, Any]):
   rewriter_config = config.graph_options.rewrite_options
-  # rewriter_config.disable_meta_optimizer = False
-  custom_graph_optimizer = rewriter_config.custom_optimizers.add()
+  rewriter_config.disable_meta_optimizer = False
 
+  custom_graph_optimizer = rewriter_config.custom_optimizers.add()
   custom_graph_optimizer.name = name
   parameter_map = custom_graph_optimizer.parameter_map
   for key, value in parameters.items():

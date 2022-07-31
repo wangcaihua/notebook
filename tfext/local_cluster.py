@@ -54,7 +54,7 @@ class Job(object):
 
 class LocalCluster(object):
   
-  def __init__(self, cluster_conf: Dict[str, int]):
+  def __init__(self, cluster_conf: Dict[str, int], disable_meta_optimizer: bool = False):
     # fix CreateSession still waiting for response from worker
     assert 'chief' in cluster_conf
     self.cluster_dict: Dict[str, List[str]] = {}
@@ -70,7 +70,7 @@ class LocalCluster(object):
       share_cluster_devices_in_session=True
     )
     self.session_config.experimental.share_session_state_in_clusterspec_propagation = True
-    self.session_config.graph_options.rewrite_options.disable_meta_optimizer = True
+    self.session_config.graph_options.rewrite_options.disable_meta_optimizer = disable_meta_optimizer
     
     self.servers: Dict[str, List[tf.distribute.Server]] = {}
     self.master: Optional[tf.distribute.Server] = None

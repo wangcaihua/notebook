@@ -27,7 +27,10 @@ py_test(
 
 tf_cc_library(
     name = "graph_optimization_pass.so",
-    srcs = ["runtime/lib/graph_optimization_pass.cc"],
+    srcs = [
+        "runtime/lib/graph_optimization_pass.cc",
+    ],
+    deps = ["//third_party/nlohmann:json",]
 )
 
 

@@ -69,7 +69,10 @@ def main(_):
   cluster_conf = {'ps': 2, 'cpu_wk': 2, 'chief': 1}
   with LocalCluster(cluster_conf=cluster_conf) as cluster:
     config = ConfigProto()
-    add_custom_graph_optimizer(config, name='StaticRegister', parameters={'hello': 1, 'word': 2})
+    add_custom_graph_optimizer(config, name='StaticRegister', 
+      parameters={'has_jobs': ['chief'], 
+                  'has_fetch_ops': ['global_step'],
+                  'filter_fetch_ops': ['init', 'identity_RetVal']})
     # MonitoredSession(
     #   session_creator=ChiefSessionCreator(master=..., config=...))
     with tf.compat.v1.Session(target=cluster.master.target, config=config) as sess:
