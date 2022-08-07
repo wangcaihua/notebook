@@ -41,7 +41,7 @@ py_library(
 )
 
 
-py_library(
+py_binary(
     name = "utils",
     srcs = ["utils.py"],
 )
